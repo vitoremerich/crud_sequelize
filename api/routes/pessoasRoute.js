@@ -11,7 +11,9 @@ router
   .delete('/pessoas/:id', PessoaController.removePerson)
   .get('/pessoas/:id/matricula/:matriculaId', PessoaController.getMatricula)
   .post('/pessoas/:id/matricula', PessoaController.createMatricula)
+  .post('/pessoas/:id/restaura', PessoaController.restorePerson)
   .put('/pessoas/:id/matricula/:matriculaId', PessoaController.updateMatricula)
-  .delete('/pessoas/:id/matricula/:matriculaId', PessoaController.removeMatricula);
+  .delete('/pessoas/:id/matricula/:matriculaId', PessoaController.removeMatricula)
+  .post('/pessoas/:id/matricula/:matriculaId/restaura', PessoaController.restoreMatricula);
 
 module.exports = router;

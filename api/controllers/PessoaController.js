@@ -52,6 +52,16 @@ class PessoaController {
     }
   }
 
+  static async restorePerson(req, res) {
+    const { id } = req.params;
+    try {
+      await database.Pessoas.restore({ where: { id: Number(id) } });
+      return res.status(200).json({ message: `${id} restaurado com sucesso` });
+    } catch (error) {
+      return res.status(500).json({ message: `${error.message} Erro ao restaurar pessoa` });
+    }
+  }
+
   static async getMatricula(req, res) {
     const { id, matriculaId } = req.params;
     try {
@@ -112,6 +122,21 @@ class PessoaController {
       return res.status(200).json({ message: `${matriculaId} deletado com sucesso` });
     } catch (error) {
       return res.status(500).json({ message: `${error.message} Erro ao deletar matricula` });
+    }
+  }
+
+  static async restoreMatricula(req, res) {
+    const { id, matriculaId } = req.params;
+    try {
+      await database.Matriculas.restore({
+        where: {
+          id: Number(matriculaId),
+          estudante_id: Number(id),
+        },
+      });
+      return res.status(200).json({ message: `${id} restaurado com sucesso` });
+    } catch (error) {
+      return res.status(500).json({ message: `${error.message} Erro ao restaurar matricula` });
     }
   }
 }

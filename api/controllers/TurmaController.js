@@ -51,6 +51,16 @@ class TurmaController {
       return res.status(500).json({ message: `${error.message} Erro ao deletar turma` });
     }
   }
+
+  static async restoreClass(req, res) {
+    const { id } = req.params;
+    try {
+      await database.Turmas.restore({ where: { id: Number(id) } });
+      return res.status(200).json({ mensagem: `${id} restaurado com sucesso` });
+    } catch (error) {
+      return res.status(500).json({ message: `${error.message} Erro ao restaurar turma` });
+    }
+  }
 }
 
 module.exports = TurmaController;

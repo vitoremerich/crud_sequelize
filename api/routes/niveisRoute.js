@@ -7,6 +7,7 @@ router
   .get('/niveis', NivelController.getAll)
   .get('/niveis/:id', NivelController.getById)
   .post('/niveis', NivelController.createLevel)
+  .post('/niveis/:id/restaura', NivelController.restoreLevel)
   .put('/niveis/:id', NivelController.updateLevel)
   .delete('/niveis:/id', NivelController.removeLevel);
 
