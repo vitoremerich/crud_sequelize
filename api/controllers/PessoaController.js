@@ -1,10 +1,19 @@
 const database = require('../models');
 
 class PessoaController {
+  static async getActivePerson(req, res) {
+    try {
+      const ativePerson = await database.Pessoas.findAll();
+      return res.status(200).json(ativePerson);
+    } catch (error) {
+      return res.status(500).json({ message: `${error.message} Erro ao realizar a busca` });
+    }
+  }
+
   static async getAll(req, res) {
     try {
-      const todasPessoas = await database.Pessoas.findAll();
-      return res.status(200).json(todasPessoas);
+      const allPersons = await database.Pessoas.scope('all').findAll();
+      return res.status(200).json(allPersons);
     } catch (error) {
       return res.status(500).json({ message: `${error.message} Erro ao realizar a busca` });
     }
