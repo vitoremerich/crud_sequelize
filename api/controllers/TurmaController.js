@@ -1,9 +1,16 @@
+const { Op } = require('sequelize');
 const database = require('../models');
 
 class TurmaController {
   static async getAll(req, res) {
+    const { initial_date, final_date } = req.query;
+    const where = {};
+    initial_date || final_date ? where.data_inicio = {} : null;
+    initial_date ? where.data_inicio[Op.gte] = initial_date : null;
+    final_date ? where.data_inicio[Op.lte] = final_date : null;
+
     try {
-      const todasTurmas = await database.Pessoas.findAll();
+      const todasTurmas = await database.Turmas.findAll({ where });
       return res.status(200).json(todasTurmas);
     } catch (error) {
       return res.status(500).json({ message: `${error.message} Erro ao realizar busca` });
